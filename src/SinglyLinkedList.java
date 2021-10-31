@@ -12,6 +12,7 @@ public class SinglyLinkedList {
         if (getNextElement() == null) tailElement = this;
     }
 
+
     public static void printList() throws EmptyListException {
         if (headElement == null) throw new EmptyListException("список пуст");
         SinglyLinkedList checkElement = headElement;
