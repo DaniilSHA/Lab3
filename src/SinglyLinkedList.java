@@ -6,14 +6,17 @@ public class SinglyLinkedList {
     private static SinglyLinkedList tailElement;
 
 
-    public SinglyLinkedList (int data) {
+    public SinglyLinkedList(int data) {
         setData(data);
         setNextElement(SinglyLinkedList.bufferElement);
-        if (getNextElement() == null) tailElement=this;
+        if (getNextElement() == null) tailElement = this;
     }
 
-    public static void printList () throws EmptyListException{
-        if (headElement==null) throw new EmptyListException("список пуст");
+    public static void doActionWithListElementMeaning (String action) {
+    }
+
+    public static void printList() throws EmptyListException {
+        if (headElement == null) throw new EmptyListException("список пуст");
         SinglyLinkedList checkElement = headElement;
         while (checkElement.getNextElement() != null) {
             System.out.print(checkElement.getData());
@@ -23,17 +26,54 @@ public class SinglyLinkedList {
         System.out.print(checkElement.getData());
     }
 
-    public static boolean isListIsEmpty () {
+    public static void deleteDataFromList(int data) {
+        if (isDataInList(data)) {
+
+            while (headElement.getData() == data) {
+                headElement = headElement.getNextElement();
+            }
+
+            while (tailElement.getData() == data) {
+                SinglyLinkedList checkElement = headElement;
+                while (checkElement.getNextElement() != tailElement)
+                    checkElement = checkElement.getNextElement();
+                checkElement.setNextElement(null);
+                tailElement = checkElement;
+            }
+
+            int counter=0;
+            SinglyLinkedList checkElement = headElement;
+            while (checkElement != tailElement) {
+                if (checkElement.getData()==data) counter++;
+                checkElement = checkElement.getNextElement();
+            }
+
+            for (int i=0; i<counter;i++) {
+                checkElement = headElement;
+                SinglyLinkedList checkElementBefore = null;
+                while (checkElement != tailElement) {
+                    if (checkElement.getData() == data) {
+                        checkElementBefore.setNextElement(checkElement.getNextElement());
+                    }
+                    checkElementBefore = checkElement;
+                    checkElement = checkElement.getNextElement();
+                }
+            }
+        }
+    }
+
+    public static boolean isListIsEmpty() {
         if (headElement == null) return true;
         else return false;
     }
 
-    public static boolean isDataInList (int data) {
+    public static boolean isDataInList(int data) {
         SinglyLinkedList checkElement = headElement;
         while (checkElement.getNextElement() != null) {
             if (checkElement.getData() == data) return true;
             checkElement = checkElement.getNextElement();
         }
+        if (checkElement.getData() == data) return true;
         return false;
     }
 
@@ -41,30 +81,30 @@ public class SinglyLinkedList {
         return tailElement.getData();
     }
 
-    public static int getDataFromEndWithDelete() throws EmptyListException{
-        if (headElement==tailElement) {
+    public static int getDataFromEndWithDelete() throws EmptyListException {
+        if (headElement == tailElement) {
             int data = headElement.getData();
             headElement = null;
             tailElement = null;
             return data;
-        } else if (headElement.nextElement==tailElement){
+        } else if (headElement.nextElement == tailElement) {
             int data = tailElement.getData();
             headElement.setNextElement(null);
-            tailElement=headElement;
+            tailElement = headElement;
             return data;
-        } else
-        {
-        int data = tailElement.getData();
-        SinglyLinkedList checkElement = headElement;
-        while (checkElement.getNextElement() != null) {
-            if (tailElement==checkElement.getNextElement()) {
-                checkElement.setNextElement(null);
-                break;
+        } else {
+            int data = tailElement.getData();
+            SinglyLinkedList checkElement = headElement;
+            while (checkElement.getNextElement() != null) {
+                if (tailElement == checkElement.getNextElement()) {
+                    checkElement.setNextElement(null);
+                    break;
+                }
+                checkElement = checkElement.getNextElement();
             }
-            checkElement = checkElement.getNextElement();
+            tailElement = checkElement;
+            return data;
         }
-        tailElement=checkElement;
-        return data;}
     }
 
     public static int getDataFromBeginningWithoutDelete() {
@@ -73,31 +113,30 @@ public class SinglyLinkedList {
 
     public static int getDataFromBeginningWithDelete() {
         int data = headElement.getData();
-        headElement=headElement.getNextElement();
+        headElement = headElement.getNextElement();
         return data;
     }
 
-    public static void addElementInEnd (int data) {
-        bufferElement=null;
+    public static void addElementInEnd(int data) {
+        bufferElement = null;
         SinglyLinkedList newElement;
         SinglyLinkedList reffForMethod;
         if (SinglyLinkedList.getTailElement() != null) {
             reffForMethod = SinglyLinkedList.getTailElement();
             newElement = new SinglyLinkedList(data);
             reffForMethod.nextElement = newElement;
-        } else
-        {
+        } else {
             newElement = new SinglyLinkedList(data);
-            headElement=newElement;
+            headElement = newElement;
         }
 
 
     }
 
-    public static void addElementInBeginning (int data) {
-        bufferElement=headElement;
+    public static void addElementInBeginning(int data) {
+        bufferElement = headElement;
         SinglyLinkedList newElement = new SinglyLinkedList(data);
-        headElement=newElement;
+        headElement = newElement;
     }
 
 
@@ -137,4 +176,8 @@ public class SinglyLinkedList {
     public static SinglyLinkedList getBufferElement() {
         return bufferElement;
     }
+
+
+
+
 }
