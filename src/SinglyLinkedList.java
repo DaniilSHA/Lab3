@@ -12,9 +12,6 @@ public class SinglyLinkedList {
         if (getNextElement() == null) tailElement = this;
     }
 
-    public static void doActionWithListElementMeaning (String action) {
-    }
-
     public static void printList() throws EmptyListException {
         if (headElement == null) throw new EmptyListException("список пуст");
         SinglyLinkedList checkElement = headElement;
@@ -41,14 +38,14 @@ public class SinglyLinkedList {
                 tailElement = checkElement;
             }
 
-            int counter=0;
+            int counter = 0;
             SinglyLinkedList checkElement = headElement;
             while (checkElement != tailElement) {
-                if (checkElement.getData()==data) counter++;
+                if (checkElement.getData() == data) counter++;
                 checkElement = checkElement.getNextElement();
             }
 
-            for (int i=0; i<counter;i++) {
+            for (int i = 0; i < counter; i++) {
                 checkElement = headElement;
                 SinglyLinkedList checkElementBefore = null;
                 while (checkElement != tailElement) {
@@ -176,8 +173,6 @@ public class SinglyLinkedList {
     public static SinglyLinkedList getBufferElement() {
         return bufferElement;
     }
-
-
 
 
 }
