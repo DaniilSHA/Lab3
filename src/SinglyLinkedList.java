@@ -1,0 +1,86 @@
+public class SinglyLinkedList {
+    private int data;
+    private SinglyLinkedList nextElement;
+    private static SinglyLinkedList bufferElement;
+    private static SinglyLinkedList headElement;
+    private static SinglyLinkedList tailElement;
+
+
+    public SinglyLinkedList (int data) {
+        setData(data);
+        setNextElement(SinglyLinkedList.bufferElement);
+        if (getNextElement() == null) tailElement=this;
+    }
+
+    public static int getDataFromBeginningWithoutDelete() {
+        return headElement.getData();
+    }
+
+    public static int getDataFromBeginningWithDelete() {
+        int data = headElement.getData();
+        headElement=headElement.getNextElement();
+        return data;
+    }
+
+    public static void addElementInEnd (int data) {
+        bufferElement=null;
+        SinglyLinkedList newElement;
+        SinglyLinkedList reffForMethod;
+        if (SinglyLinkedList.getTailElement() != null) {
+            reffForMethod = SinglyLinkedList.getTailElement();
+            newElement = new SinglyLinkedList(data);
+            reffForMethod.nextElement = newElement;
+        } else
+        {
+            newElement = new SinglyLinkedList(data);
+            headElement=newElement;
+        }
+
+
+    }
+
+    public static void addElementInBeginning (int data) {
+        bufferElement=headElement;
+        SinglyLinkedList newElement = new SinglyLinkedList(data);
+        bufferElement=newElement;
+        headElement=newElement;
+    }
+
+
+    public static SinglyLinkedList getHeadElement() {
+        return headElement;
+    }
+
+    public static SinglyLinkedList getTailElement() {
+        return tailElement;
+    }
+
+
+    public static void setHeadElement(SinglyLinkedList headElement) {
+        SinglyLinkedList.headElement = headElement;
+    }
+
+    public static void setTailElement(SinglyLinkedList tailElement) {
+        SinglyLinkedList.tailElement = tailElement;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public SinglyLinkedList getNextElement() {
+        return nextElement;
+    }
+
+    public void setData(int data) {
+        this.data = data;
+    }
+
+    public void setNextElement(SinglyLinkedList nextElement) {
+        this.nextElement = nextElement;
+    }
+
+    public static SinglyLinkedList getBufferElement() {
+        return bufferElement;
+    }
+}
